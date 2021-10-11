@@ -1,5 +1,6 @@
 package com.example.market.controllers;
 
+import com.example.market.dtos.request.UserRequest;
 import com.example.market.dtos.response.UserResponse;
 import com.example.market.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +27,9 @@ public class UserController {
     @GetMapping("{email}")
     public ResponseEntity<UserResponse> getByEmail(@PathVariable String email){
         return new ResponseEntity<>(userService.getUserByEmail(email),HttpStatus.OK);
+    }
+    @PostMapping("add")
+    public ResponseEntity addUser(@RequestBody UserRequest user){
+        return ResponseEntity.ok(userService.addUser(user));
     }
 }

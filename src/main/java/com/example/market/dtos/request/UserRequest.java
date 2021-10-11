@@ -1,13 +1,14 @@
-package com.example.market.dtos.response;
+package com.example.market.dtos.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class UserResponse {
+@AllArgsConstructor
+public class UserRequest {
     private String email;
     private String username;
     private float money;

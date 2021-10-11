@@ -3,7 +3,6 @@ package com.example.market.entities;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Currency;
 
 @Entity
 @Data
@@ -13,11 +12,11 @@ import java.util.Currency;
 })
 public class User {
     @Id
-    @GeneratedValue(generator = "uuid")
-    private Long id;
+    @GeneratedValue(strategy =GenerationType.AUTO )
+    private int id;
     private String email;
     private String username;
-    private Currency money;
+    private float money;
 
 
 }
