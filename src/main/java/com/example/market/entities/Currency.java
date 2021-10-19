@@ -10,7 +10,8 @@ import javax.persistence.*;
 public class Currency {
     @Id
     @GeneratedValue(strategy =GenerationType.AUTO )
-    private int currencyId;
+    @Column(name="id")
+    private int id;
     private String name;
     private float price;
     private float capitalization;

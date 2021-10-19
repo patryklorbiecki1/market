@@ -3,6 +3,8 @@ package com.example.market.entities;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 @Data
@@ -17,6 +19,7 @@ public class User {
     private String email;
     private String username;
     private float money;
-
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Collection<Role> roles = new ArrayList<Role>();
 
 }
