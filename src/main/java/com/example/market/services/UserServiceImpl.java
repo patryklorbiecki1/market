@@ -1,9 +1,9 @@
 package com.example.market.services;
 
 import com.example.market.dtos.request.UserRequest;
-import com.example.market.dtos.response.MessageResponse;
 import com.example.market.dtos.response.UserResponse;
 import com.example.market.entities.User;
+import com.example.market.mapper.UserMapper;
 import com.example.market.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,10 +15,12 @@ import java.util.stream.StreamSupport;
 @Service
 public class UserServiceImpl implements UserService{
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
+        this.userMapper = userMapper;
     }
 
     @Override
@@ -38,16 +40,12 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public MessageResponse addUser(UserRequest userRequest) {
-        if(userRepository.existsByEmail(userRequest.getEmail()))
-            return new MessageResponse("Email exists!");
-        else if(userRepository.existsByUsername(userRequest.getUsername()))
-            return new MessageResponse("Username exists!");
+    public UserResponse addUser(UserRequest userRequest) {
         User user = new User();
-        user.setUsername(userRequest.getUsername());
-        user.setEmail(userRequest.getEmail());
-        user.setMoney(userRequest.getMoney());
+        user.setUsername(userRequest.username());
+        user.setEmail(userRequest.email());
+        user.setMoney(userRequest.money());
         userRepository.save(user);
-        return new MessageResponse("User created!");
+        return userMapper.toUserResponse(user);
     }
 }

@@ -10,5 +10,4 @@ import java.util.Optional;
 public interface CurrencyRepository extends CrudRepository<Currency,Integer> {
     Optional<Currency> findByName(String name);
     void deleteByName(String name);
-    boolean existsByName(String name);
 }

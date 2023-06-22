@@ -2,7 +2,7 @@ package com.example.market.entities;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -20,6 +20,6 @@ public class User {
     private String username;
     private float money;
     @ManyToMany(fetch = FetchType.LAZY)
-    private Collection<Role> roles = new ArrayList<Role>();
+    private Collection<Role> roles = new ArrayList<>();
 
 }

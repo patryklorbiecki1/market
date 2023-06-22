@@ -21,15 +21,15 @@ public class UserController {
         this.userService = userService;
     }
     @GetMapping("all")
-    public ResponseEntity<List<UserResponse>> getAll(){
-        return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
+    public List<UserResponse> getAll(){
+        return userService.getAllUsers();
     }
     @GetMapping("{email}")
-    public ResponseEntity<UserResponse> getByEmail(@PathVariable String email){
-        return new ResponseEntity<>(userService.getUserByEmail(email),HttpStatus.OK);
+    public UserResponse getByEmail(@PathVariable String email){
+        return userService.getUserByEmail(email);
     }
     @PostMapping("add")
-    public ResponseEntity addUser(@RequestBody UserRequest user){
-        return ResponseEntity.ok(userService.addUser(user));
+    public UserResponse addUser(@RequestBody UserRequest user){
+        return userService.addUser(user);
     }
 }

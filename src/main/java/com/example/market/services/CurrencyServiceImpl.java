@@ -2,8 +2,8 @@ package com.example.market.services;
 
 import com.example.market.dtos.request.CurrencyRequest;
 import com.example.market.dtos.response.CurrencyResponse;
-import com.example.market.dtos.response.MessageResponse;
 import com.example.market.entities.Currency;
+import com.example.market.mapper.CurrencyMapper;
 import com.example.market.repositories.CurrencyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,10 +15,12 @@ import java.util.stream.StreamSupport;
 @Service
 public class CurrencyServiceImpl implements CurrencyService {
     private final CurrencyRepository currencyRepository;
+    private final CurrencyMapper currencyMapper;
 
     @Autowired
-    public CurrencyServiceImpl(CurrencyRepository currencyRepository) {
+    public CurrencyServiceImpl(CurrencyRepository currencyRepository, CurrencyMapper currencyMapper) {
         this.currencyRepository = currencyRepository;
+        this.currencyMapper = currencyMapper;
     }
 
     @Override
@@ -47,21 +49,17 @@ public class CurrencyServiceImpl implements CurrencyService {
     }
 
     @Override
-    public MessageResponse addCurrency(CurrencyRequest currencyRequest) {
-        if(currencyRepository.existsByName(currencyRequest.getName()))
-            return new MessageResponse("Currency exists!");
-
+    public CurrencyResponse addCurrency(CurrencyRequest currencyRequest) {
         Currency currency = new Currency();
-        currency.setName(currencyRequest.getName());
-        currency.setCapitalization(currencyRequest.getCapitalization());
-        currency.setPrice(currencyRequest.getPrice());
+        currency.setName(currencyRequest.name());
+        currency.setCapitalization(currencyRequest.capitalization());
+        currency.setPrice(currencyRequest.price());
         currencyRepository.save(currency);
-        return new MessageResponse("Currency created!");
+        return currencyMapper.toCurrencyResponse(currency);
     }
 
     @Override
-    public MessageResponse remove(String name) {
+    public void remove(String name) {
         currencyRepository.deleteByName(name);
-        return new MessageResponse("Currency: " + name + " was deleted!");
     }
 }

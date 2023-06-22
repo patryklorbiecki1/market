@@ -4,8 +4,6 @@ import com.example.market.dtos.request.CurrencyRequest;
 import com.example.market.dtos.response.CurrencyResponse;
 import com.example.market.services.CurrencyService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,20 +19,22 @@ public class CurrencyController {
     }
 
     @GetMapping("all")
-    public ResponseEntity<List<CurrencyResponse>> getAll(){
-        return new ResponseEntity<>(currencyService.getAll(), HttpStatus.OK);
+    public List<CurrencyResponse> getAll() {
+        return currencyService.getAll();
     }
 
     @GetMapping("{name}")
-    public ResponseEntity<CurrencyResponse> getByName(@PathVariable String name){
-        return new ResponseEntity<>(currencyService.getByName(name),HttpStatus.OK);
+    public CurrencyResponse getByName(@PathVariable String name) {
+        return currencyService.getByName(name);
     }
+
     @PostMapping("add")
-    public ResponseEntity addCurrency(CurrencyRequest currencyRequest){
-        return ResponseEntity.ok(currencyService.addCurrency(currencyRequest));
+    public CurrencyResponse addCurrency(CurrencyRequest currencyRequest) {
+        return currencyService.addCurrency(currencyRequest);
     }
+
     @DeleteMapping("{name}")
-    public ResponseEntity deleteCurrency(String name){
-        return ResponseEntity.ok(currencyService.remove(name));
+    public void deleteCurrency(String name) {
+        currencyService.remove(name);
     }
 }

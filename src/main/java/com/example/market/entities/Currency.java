@@ -1,15 +1,15 @@
 package com.example.market.entities;
 
+import jakarta.persistence.*;
 import lombok.Data;
 
-import javax.persistence.*;
 
 @Data
 @Entity
 @Table(name = "currency")
 public class Currency {
     @Id
-    @GeneratedValue(strategy =GenerationType.AUTO )
+    @GeneratedValue(strategy = GenerationType.AUTO )
     @Column(name="id")
     private int id;
     private String name;
